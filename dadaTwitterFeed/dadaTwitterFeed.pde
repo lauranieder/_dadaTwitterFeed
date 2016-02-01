@@ -16,7 +16,7 @@ int requestedNb = 5;
 
 tweetPoem[] tweetPoems;
 PFont[] fonts;
-PFont font = loadFont("SteelfishRg-Regular-30.vlw"); 
+//PFont font = loadFont("SteelfishRg-Regular-30.vlw"); 
 
 void setup() { 
   size(1280,800);
@@ -72,7 +72,7 @@ void draw(){
   for(int i = 0;i<nbW;i++){
     for(int j = 0;j<nbH;j++){
       
-      rect(i*sqrW+((width-(nbW*sqrW))/2), j*sqrH,sqrW, sqrH);
+      //rect(i*sqrW+((width-(nbW*sqrW))/2), j*sqrH,sqrW, sqrH);
     }  
   }
   
