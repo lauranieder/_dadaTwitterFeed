@@ -1,26 +1,73 @@
-class tweetPoem{
-  
+class tweetPoem {
+
   String texte;
   float posX, posY, size, speed;
-  
-  tweetPoem(String texte){
-    this.texte = texte;
-    posX = random(0,width);
-    posY = random(0,height);
-    size = random(10,30);
-    speed = random(0.1, 1);
-    println("New tweet create : "+posX+","+posY);
+  PFont  font;
+  boolean uppercase = false;
+  int id;
+  boolean fullSeen = false;
+  tweetPoem(String _texte, int _id) {
+    id = _id;
+   texte = _texte;
+    size = random(10, 30);
+    posX = random(0, width);
+    posY = random(size, lineHeight);
     
+    
+    speed = random(0.1, 1);
+    int randomFont = floor(random(0, fonts.length));
+    texte = clean(texte);
+      
+    font = fonts[randomFont];
+    if (randomFont == 2) {
+      uppercase = true;
+      size = size*0.8;
+      texte = texte.toUpperCase();
+    }
+    println("New tweet create : "+posX+","+posY);
+  }
+  String clean(String msgToClean){
+   
+    String check1 ="\n";
+    String check2 ="\r";
+    //char check1 = '\\';
+    //char check2 = '\\';
+    if( msgToClean.indexOf(check1) != -1 ){
+      println("_________________found check1");
+      msgToClean = msgToClean.substring(0, msgToClean.indexOf(check1));
+    }else{
+       println("nothing found");
+    }
+    
+    if( msgToClean.indexOf(check2) != -1 ){
+      println("_________________found check2");
+      msgToClean = msgToClean.substring(0, msgToClean.indexOf(check2));
+    }else{
+       println("nothing found");
+    }
+    
+    return msgToClean;
   }
   
-  void draw(){
+  void draw() {
     fill(255);
+    textFont(font);
     textSize(size);
-    text(texte, posX, posY);
+
+    text(texte, posX, (id*lineHeight)+posY+offsetT);
+    
     updatePos();
   }
 
-void updatePos(){
-  posX -=speed;
-}  
+  void updatePos() {
+    posX -=speed;
+    
+    float textW = textWidth(texte);
+    if((posX+textW)<width && fullSeen == false){
+      println("TEXTE EN ENTIER :"+id);
+      fullSeen = true;
+    }
+
 }
+}
+

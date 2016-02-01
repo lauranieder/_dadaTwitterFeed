@@ -11,21 +11,32 @@ int sqrH;
 int sqrW;
 int nbW = 6;
 int nbH = 6;
- 
-int requestedNb = 5;
+int offsetT = 100;//top
+int offsetB = 100;//bottom
 
+int requestedNb = 5;
+int lineHeight;
+ArrayList<String> bufferTweetPoems;
+ArrayList<tweetPoem> displayTweetPoems;
 tweetPoem[] tweetPoems;
 PFont[] fonts;
 //PFont font = loadFont("SteelfishRg-Regular-30.vlw"); 
 
+boolean debug = false;
 void setup() { 
   size(1280,800);
   background(0);
+  smooth(2);
   sqrH = sqrW= height/nbH;
-  
+  lineHeight = floor((height-offsetT-offsetB)/requestedNb);
   tweetPoems = new tweetPoem[requestedNb];
-  fonts = new PFont[5];
-  //fonts[]
+  bufferTweetPoems = new ArrayList<String>();
+  displayTweetPoems = new ArrayList<tweetPoem>();
+  fonts = new PFont[3];
+  fonts[0] = loadFont("SteelfishRg-Regular-30.vlw"); 
+  fonts[1] = loadFont("BebasNeue-Thin-30.vlw");
+   fonts[2] = loadFont("BrandonGrotesque-Regular-30.vlw"); 
+  
   //Acreditacion
   cb = new ConfigurationBuilder();
   cb.setOAuthConsumerKey("2qMiURIx98A0ZGrE0oO14UpUQ");
@@ -52,7 +63,14 @@ void queryTwitter() {
     int i = 0;
     for (Status tw : tweets) {
       String msg = tw.getText();
-      tweetPoems[i] = new tweetPoem(msg);
+      
+      if(displayTweetPoems.size()>requestedNb-1){
+        bufferTweetPoems.add(msg);
+      }else{
+        displayTweetPoems.add(new tweetPoem(msg, i));
+      }
+      //tweetPoems[i] = new tweetPoem(msg, i);
+      
       //tw.get
       println("tweet : " + msg);
       i++;
@@ -69,6 +87,11 @@ void draw(){
   }
   stroke(255);
   fill(0);
+  if(debug){
+  for(int i = 0;i<requestedNb+1;i++){
+    line(0,offsetT+(lineHeight*i),width,offsetT+(lineHeight*i));
+  }
+  }
   for(int i = 0;i<nbW;i++){
     for(int j = 0;j<nbH;j++){
       
@@ -81,4 +104,13 @@ void draw(){
     
   }
   
+}
+
+
+void keyPressed(){
+  
+  if (key == ' '){
+    debug = !debug;
+    
+  }
 }
