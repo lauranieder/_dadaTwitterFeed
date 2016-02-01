@@ -1,21 +1,26 @@
-class tweet{
+class tweetPoem{
   
   String texte;
-  float posX, posY;
+  float posX, posY, size, speed;
   
-  tweet(String texte){
+  tweetPoem(String texte){
     this.texte = texte;
-    
-    
+    posX = random(0,width);
+    posY = random(0,height);
+    size = random(10,30);
+    speed = random(0.1, 1);
+    println("New tweet create : "+posX+","+posY);
     
   }
   
   void draw(){
-    textSize(32);
-    text(texte, 10, 30);
-    
-    
+    fill(255);
+    textSize(size);
+    text(texte, posX, posY);
+    updatePos();
   }
-  
-  
+
+void updatePos(){
+  posX -=speed;
+}  
 }
