@@ -21,7 +21,7 @@ class tweetPoem {
     posY = random(size, lineHeight);
 
 
-    speed = random(0.1, 1);
+    speed = random(0.5, 1);
     int randomFont = floor(random(0, fonts.length));
     texte = clean(texte);
 
@@ -85,4 +85,3 @@ class tweetPoem {
     } 
   }
 }
-

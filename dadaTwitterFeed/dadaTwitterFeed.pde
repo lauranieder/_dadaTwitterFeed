@@ -11,8 +11,8 @@ int sqrH;
 int sqrW;
 int nbW = 6;
 int nbH = 6;
-int offsetT = 100;//top
-int offsetB = 100;//bottom
+int offsetT = 0;//top
+int offsetB = 0;//bottom
 
 int displayNb = 5;
 int requestedNb = 15;
@@ -83,7 +83,7 @@ void queryTwitter() {
 }
 void draw(){
   background(0);
-   if (frameCount % 10 == 0) {
+   if (buffertweetPoems.size() § {
     //queryTwitter();
   }
   stroke(255);
