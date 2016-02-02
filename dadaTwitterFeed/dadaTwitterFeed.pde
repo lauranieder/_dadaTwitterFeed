@@ -37,10 +37,12 @@ void setup() {
   tweetPoems = new tweetPoem[displayNb];
   bufferTweetPoems = new ArrayList<String>();
   displayTweetPoems = new ArrayList<tweetPoem>();
-  fonts = new PFont[3];
-  fonts[0] = loadFont("SteelfishRg-Regular-30.vlw"); 
-  fonts[1] = loadFont("BebasNeue-Thin-30.vlw");
-  fonts[2] = loadFont("BrandonGrotesque-Regular-30.vlw"); 
+  fonts = new PFont[4];
+  fonts[0] = loadFont("SteelfishRg-Regular-60.vlw"); 
+  fonts[1] = loadFont("BebasNeueRegular-60.vlw");
+  fonts[2] = loadFont("BrandonGrotesque-Medium-60.vlw"); 
+  fonts[3] = loadFont("Merriweather-Light-60.vlw"); 
+  
 
   //Acreditacion
   cb = new ConfigurationBuilder();
@@ -76,7 +78,7 @@ void queryTwitter() {
           bufferTweetPoems.add(msg);
           println("TWEET N° "+i+" added to buffer");
         } else {
-          displayTweetPoems.add(new tweetPoem(msg, j, -1));
+          displayTweetPoems.add(new tweetPoem(msg, j, -1, -1, -1));
           println("TWEET N° "+i+" added to display");
           j++;
         } 
@@ -98,23 +100,38 @@ void queryTwitter() {
   }
 }
 void draw() {
+ for(int i=0; i<4; i++) {
+   drawRoutine();
+ }
+}
+void drawRoutine() {
  background(0);
+ fill(255);
+ textFont(fonts[2]);
+ textSize(60);
+ text("Die Wache", 400,400);
+ text("La Garde", 450,500);
   if (bufferTweetPoems.size() < 5) {
     queryTwitter();
   }
   stroke(255);
   fill(0);
+   pushStyle();
   if (debug) {
-    for (int i = 0; i<displayNb+1; i++) {
-      line(0, offsetT+(lineHeight*i), width, offsetT+(lineHeight*i));
-    }
+    for (int i = 0; i<displayNb+1; i++) { 
+      fill(255,255,255);
+      stroke(255,255,255);
+      strokeWeight(4);
+      line(0, offsetT+(lineHeight*i),width, offsetT+(lineHeight*i));
+    } 
   }
-
+  popStyle();
+ 
   for (int i = 0; i<displayTweetPoems.size (); i++) {
     //println("TWEET N°"+i+" draw");
-    displayTweetPoems.get(i).draw();
+    displayTweetPoems.get(i).display();
   }
- 
+  
 }
 
 void removeTweetFromDisplay(tweetPoem poem){
