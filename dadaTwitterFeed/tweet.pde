@@ -19,7 +19,7 @@ class tweetPoem {
      texte = clean(texte);
  int randomFont = floor(random(0, fonts.length));
     font = fonts[randomFont];
-    if (randomFont == 2 ||randomFont == 3) {
+    if (randomFont == 2) {
       uppercase = true;
       size = size*0.8;
       texte = texte.toUpperCase();

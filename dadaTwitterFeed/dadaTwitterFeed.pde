@@ -14,7 +14,7 @@ int sqrH;
 int sqrW;
 int nbW = 6;
 int nbH = 6;
-int offsetT = 0;//top
+int offsetT = 100;//top
 int offsetB = 0;//bottom
 
 int displayNb = 5;
@@ -41,7 +41,7 @@ void setup() {
   fonts[0] = loadFont("SteelfishRg-Regular-60.vlw"); 
   fonts[1] = loadFont("BebasNeueRegular-60.vlw");
   fonts[2] = loadFont("BrandonGrotesque-Medium-60.vlw"); 
-  fonts[3] = loadFont("Merriweather-Light-60.vlw"); 
+  fonts[3] = loadFont("BebasNeueBold-70.vlw"); 
   
 
   //Acreditacion
@@ -99,18 +99,23 @@ void queryTwitter() {
     println("Couldn't connect: " + te);
   }
 }
+//void draw() {
+// for(int i=0; i<4; i++) {
+//   drawRoutine();
+// }
+//}
 void draw() {
- for(int i=0; i<4; i++) {
-   drawRoutine();
- }
-}
-void drawRoutine() {
  background(0);
- fill(255);
+ fill(198,87,79);
  textFont(fonts[2]);
- textSize(60);
- text("Die Wache", 400,400);
- text("La Garde", 450,500);
+ textSize(50);
+ text("#dada", 660+20,204+60+10);
+ text("data", 790+20,164+60+10);
+ text("Die Wache", 538+20,464+60+10);
+  textSize(55);
+ text("La Garde", 826+45,542+60+25);
+ textSize(40);
+ text("www.data-data.net", 817+20,740+40);
   if (bufferTweetPoems.size() < 5) {
     queryTwitter();
   }
@@ -149,6 +154,12 @@ void keyPressed() {
    if (key == 'k') {
     println("display/ "+displayTweetPoems.size()+"     buffer/"+bufferTweetPoems.size());
   }
+  
+}
+
+void mousePressed(){
+  println(mouseX+"  "+mouseY);
+  
 }
 
 boolean checkRetweet(String msgToClean) {
