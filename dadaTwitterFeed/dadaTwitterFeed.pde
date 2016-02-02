@@ -14,7 +14,8 @@ int nbH = 6;
 int offsetT = 100;//top
 int offsetB = 100;//bottom
 
-int requestedNb = 5;
+int displayNb = 5;
+int requestedNb = 15;
 int lineHeight;
 ArrayList<String> bufferTweetPoems;
 ArrayList<tweetPoem> displayTweetPoems;
@@ -28,8 +29,8 @@ void setup() {
   background(0);
   smooth(2);
   sqrH = sqrW= height/nbH;
-  lineHeight = floor((height-offsetT-offsetB)/requestedNb);
-  tweetPoems = new tweetPoem[requestedNb];
+  lineHeight = floor((height-offsetT-offsetB)/displayNb);
+  tweetPoems = new tweetPoem[displayNb];
   bufferTweetPoems = new ArrayList<String>();
   displayTweetPoems = new ArrayList<tweetPoem>();
   fonts = new PFont[3];
@@ -64,7 +65,7 @@ void queryTwitter() {
     for (Status tw : tweets) {
       String msg = tw.getText();
       
-      if(displayTweetPoems.size()>requestedNb-1){
+      if(displayTweetPoems.size()>displayNb-1){
         bufferTweetPoems.add(msg);
       }else{
         displayTweetPoems.add(new tweetPoem(msg, i));
@@ -88,7 +89,7 @@ void draw(){
   stroke(255);
   fill(0);
   if(debug){
-  for(int i = 0;i<requestedNb+1;i++){
+  for(int i = 0;i<displayNb+1;i++){
     line(0,offsetT+(lineHeight*i),width,offsetT+(lineHeight*i));
   }
   }
@@ -99,11 +100,17 @@ void draw(){
     }  
   }
   
-  for(int i = 0;i<tweetPoems.length;i++){
-    tweetPoems[i].draw();
+//  for(int i = 0;i<tweetPoems.length;i++){
+//    tweetPoems[i].draw();
+//    
+//  }
+  for(int i = 0;i<displayTweetPoems.size();i++){
+    displayTweetPoems.get(i).draw();
     
   }
-  
+//  for(tweetPoem t : displayTweetPoems){
+//    t.draw();
+//  } 
 }
 
 

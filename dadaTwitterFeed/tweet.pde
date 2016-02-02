@@ -8,16 +8,23 @@ class tweetPoem {
   boolean fullSeen = false;
   tweetPoem(String _texte, int _id) {
     id = _id;
-   texte = _texte;
+    texte = _texte;
     size = random(10, 30);
-    posX = random(0, width);
+    if(frameCount < 5){
+      posX = random(width/2, width);
+      //DOING FULLSCREEEEEEN
+    }else{
+      
+      posX = random(width+50, width+200);
+    }
+    
     posY = random(size, lineHeight);
-    
-    
+
+
     speed = random(0.1, 1);
     int randomFont = floor(random(0, fonts.length));
     texte = clean(texte);
-      
+
     font = fonts[randomFont];
     if (randomFont == 2) {
       uppercase = true;
@@ -26,48 +33,56 @@ class tweetPoem {
     }
     println("New tweet create : "+posX+","+posY);
   }
-  String clean(String msgToClean){
-   
+  String clean(String msgToClean) {
+
     String check1 ="\n";
     String check2 ="\r";
     //char check1 = '\\';
     //char check2 = '\\';
-    if( msgToClean.indexOf(check1) != -1 ){
-      println("_________________found check1");
+    if ( msgToClean.indexOf(check1) != -1 ) {
+      println("_________________found check1   "+msgToClean);
       msgToClean = msgToClean.substring(0, msgToClean.indexOf(check1));
-    }else{
-       println("nothing found");
+    } else {
+      println("nothing found");
     }
-    
-    if( msgToClean.indexOf(check2) != -1 ){
-      println("_________________found check2");
+
+    if ( msgToClean.indexOf(check2) != -1 ) {
+      println("_________________found check2  "+msgToClean);
       msgToClean = msgToClean.substring(0, msgToClean.indexOf(check2));
-    }else{
-       println("nothing found");
+    } else {
+      println("nothing found");
     }
-    
+
     return msgToClean;
   }
-  
+
   void draw() {
     fill(255);
     textFont(font);
     textSize(size);
 
     text(texte, posX, (id*lineHeight)+posY+offsetT);
-    
+
     updatePos();
   }
 
   void updatePos() {
     posX -=speed;
-    
+
     float textW = textWidth(texte);
-    if((posX+textW)<width && fullSeen == false){
+    if ((posX+textW)<width && fullSeen == false) {
       println("TEXTE EN ENTIER :"+id);
       fullSeen = true;
+      createNewTweet();
     }
-
-}
+  }
+  
+  void createNewTweet(){
+    if(bufferTweetPoems.size() > 0){
+      String newMsg = bufferTweetPoems.get(0);
+      bufferTweetPoems.remove(0); 
+      displayTweetPoems.add(new tweetPoem(newMsg, id));
+    } 
+  }
 }
 
