@@ -18,7 +18,7 @@ int offsetT = 0;//top
 int offsetB = 0;//bottom
 
 int displayNb = 5;
-int requestedNb = 15;
+int requestedNb = 60;
 int lineHeight;
 ArrayList<String> bufferTweetPoems;
 ArrayList<tweetPoem> displayTweetPoems;
@@ -27,8 +27,9 @@ PFont[] fonts;
 //PFont font = loadFont("SteelfishRg-Regular-30.vlw"); 
 
 boolean debug = false;
+boolean retweet = false;
 void setup() { 
-  size(1280,800);
+  size(1280, 800);
   background(0);
   smooth(2);
   sqrH = sqrW= height/nbH;
@@ -39,8 +40,8 @@ void setup() {
   fonts = new PFont[3];
   fonts[0] = loadFont("SteelfishRg-Regular-30.vlw"); 
   fonts[1] = loadFont("BebasNeue-Thin-30.vlw");
-   fonts[2] = loadFont("BrandonGrotesque-Regular-30.vlw"); 
-  
+  fonts[2] = loadFont("BrandonGrotesque-Regular-30.vlw"); 
+
   //Acreditacion
   cb = new ConfigurationBuilder();
   cb.setOAuthConsumerKey("2qMiURIx98A0ZGrE0oO14UpUQ");
@@ -54,73 +55,93 @@ void setup() {
   queryTwitter();
 }
 
-
-
 void queryTwitter() {
   //BUSCAR NUEVO TWITTER
   query = new Query("#dadadata");
   query.setCount(requestedNb);
   try {
+    println("_____________PROCESSING TWEETS____________");
+    println("_____________requested : "+requestedNb+"____________");
     QueryResult result = twitter.search(query);
     List<Status> tweets = result.getTweets();
-    //println("New Tweet : ");
     int i = 0;
+    int j = 0;
     for (Status tw : tweets) {
       String msg = tw.getText();
-      
-      if(displayTweetPoems.size()>displayNb-1){
-        bufferTweetPoems.add(msg);
+      if(!retweet && checkRetweet(msg)){
+        println("TWEET N° "+i+" removed because retweet");
       }else{
-        displayTweetPoems.add(new tweetPoem(msg, i));
+        
+        if (displayTweetPoems.size()>displayNb-1) {
+          bufferTweetPoems.add(msg);
+          println("TWEET N° "+i+" added to buffer");
+        } else {
+          displayTweetPoems.add(new tweetPoem(msg, j, -1));
+          println("TWEET N° "+i+" added to display");
+          j++;
+        } 
+        
       }
-      //tweetPoems[i] = new tweetPoem(msg, i);
-      
-      //tw.get
-      println("tweet : " + msg);
       i++;
+      
+    }
+    println("display/ "+displayTweetPoems.size()+"     buffer/"+bufferTweetPoems.size());
+    println("___________________________________________");
+    if(bufferTweetPoems.size()<20){
+      requestedNb +=10; //next request will ask for more tweets
+    }else if(bufferTweetPoems.size()>40){
+      requestedNb -=10; //next request will ask for less tweets
     }
   }
   catch (TwitterException te) {
     println("Couldn't connect: " + te);
   }
 }
-void draw(){
-  background(0);
-   if (bufferTweetPoems.size() < 5) {
+void draw() {
+ background(0);
+  if (bufferTweetPoems.size() < 5) {
     queryTwitter();
   }
   stroke(255);
   fill(0);
-  if(debug){
-  for(int i = 0;i<displayNb+1;i++){
-    line(0,offsetT+(lineHeight*i),width,offsetT+(lineHeight*i));
+  if (debug) {
+    for (int i = 0; i<displayNb+1; i++) {
+      line(0, offsetT+(lineHeight*i), width, offsetT+(lineHeight*i));
+    }
   }
-  }
-  for(int i = 0;i<nbW;i++){
-    for(int j = 0;j<nbH;j++){
-      
-      //rect(i*sqrW+((width-(nbW*sqrW))/2), j*sqrH,sqrW, sqrH);
-    }  
-  }
-  
-//  for(int i = 0;i<tweetPoems.length;i++){
-//    tweetPoems[i].draw();
-//    
-//  }
-  for(int i = 0;i<displayTweetPoems.size();i++){
+
+  for (int i = 0; i<displayTweetPoems.size (); i++) {
+    //println("TWEET N°"+i+" draw");
     displayTweetPoems.get(i).draw();
-    
   }
-//  for(tweetPoem t : displayTweetPoems){
-//    t.draw();
-//  } 
+ 
+}
+
+void removeTweetFromDisplay(tweetPoem poem){
+  
+  displayTweetPoems.remove(poem);
 }
 
 
-void keyPressed(){
-  
-  if (key == ' '){
+void keyPressed() {
+
+  if (key == ' ') {
     debug = !debug;
-    
+  }
+  
+   if (key == 'k') {
+    println("display/ "+displayTweetPoems.size()+"     buffer/"+bufferTweetPoems.size());
+  }
+}
+
+boolean checkRetweet(String msgToClean) {
+
+  String check1 ="RT @";
+
+  if ( msgToClean.indexOf(check1) != -1 ) {
+    //println("++++++++++++++++found RETWEET   "+msgToClean);
+    return true;
+  } else {
+    return false;
   }
 }
