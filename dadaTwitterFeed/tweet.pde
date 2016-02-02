@@ -9,7 +9,7 @@ class tweetPoem {
   tweetPoem(String _texte, int _id) {
     id = _id;
     texte = _texte;
-    size = random(30, 50);
+    size = random(40, 70);
     if(frameCount < 5){
       posX = random(width/2, width);
       //DOING FULLSCREEEEEEN
