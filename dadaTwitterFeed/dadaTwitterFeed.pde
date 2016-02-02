@@ -83,8 +83,8 @@ void queryTwitter() {
 }
 void draw(){
   background(0);
-   if (buffertweetPoems.size() § {
-    //queryTwitter();
+   if (bufferTweetPoems.size() < 5) {
+    queryTwitter();
   }
   stroke(255);
   fill(0);
