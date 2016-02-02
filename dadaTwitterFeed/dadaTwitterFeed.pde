@@ -7,6 +7,9 @@ ConfigurationBuilder   cb;
 Query query;
 Twitter twitter;
 
+/*eviter qu'ils puissent se mettre exactement où était l'autre tweet d'avant
+/*enlever les retweet*/
+
 int sqrH;
 int sqrW;
 int nbW = 6;
