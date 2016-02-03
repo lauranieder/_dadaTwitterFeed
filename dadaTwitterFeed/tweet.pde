@@ -22,7 +22,9 @@ class tweetPoem {
     if (randomFont == 2) {
       uppercase = true;
       size = size*0.8;
+      if(randomFont == 2){
       texte = texte.toUpperCase();
+      }
     }
      textSize(size);
        textAscent= textAscent();
