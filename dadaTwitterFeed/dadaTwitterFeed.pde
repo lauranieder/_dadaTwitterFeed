@@ -43,7 +43,8 @@ void setup() {
   fonts[2] = loadFont("BrandonGrotesque-Medium-60.vlw"); 
   fonts[3] = loadFont("BebasNeueBold-70.vlw"); 
   
-
+    
+  
   //Acreditacion
   cb = new ConfigurationBuilder();
   cb.setOAuthConsumerKey("2qMiURIx98A0ZGrE0oO14UpUQ");
@@ -109,7 +110,8 @@ void draw() {
  fill(198,87,79);
  textFont(fonts[2]);
  textSize(50);
- text("#dada", 660+20,204+60+10);
+ noCursor();
+ text("#dada", 660+10,204+60+10);
  text("data", 790+20,164+60+10);
  text("Die Wache", 538+20,464+60+10);
   textSize(55);
