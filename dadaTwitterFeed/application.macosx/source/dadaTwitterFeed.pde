@@ -20,6 +20,8 @@ int offsetB = 0;//bottom
 int displayNb = 5;
 int requestedNb = 60;
 int lineHeight;
+PShape SSRSRG, arte, rsi, rsr, rss;
+
 ArrayList<String> bufferTweetPoems;
 ArrayList<tweetPoem> displayTweetPoems;
 tweetPoem[] tweetPoems;
@@ -43,7 +45,11 @@ void setup() {
   fonts[2] = loadFont("BrandonGrotesque-Medium-60.vlw"); 
   fonts[3] = loadFont("BebasNeueBold-70.vlw"); 
   
-    
+    //SSRSRG = loadShape("SSRSRG.svg");
+    //SRF = loadShape("SRF.svg");
+    //SRF = loadShape("SRF.svg");
+    //SRF = loadShape("SRF.svg");
+    //SRF = loadShape("SRF.svg");
   
   //Acreditacion
   cb = new ConfigurationBuilder();
@@ -111,13 +117,15 @@ void draw() {
  textFont(fonts[2]);
  textSize(50);
  noCursor();
- text("#dada", 660+10,204+60+10);
- text("data", 790+20,164+60+10);
- text("Die Wache", 538+20,464+60+10);
+ text("#dada", 660-20,204+10); //660+10,204+60+10
+ text("data", 790-10,164); //790+20,164+60+10
+ text("Die Wache", 350+20,420+60+10); //538+20,464+60+10
   textSize(55);
- text("La Garde", 826+45,542+60+25);
- textSize(40);
- text("www.data-data.net", 817+20,740+40);
+ text("La Garde", 126+45,500+60+25); //826+45,542+60+25
+ textSize(39);
+ text("www.", 700,600-40); //817+20,740+40
+ text("data-data", textWidth("www.")+704,600);
+ text(".net", textWidth("www.dada-data")+700,600+30);
   if (bufferTweetPoems.size() < 5) {
     queryTwitter();
   }
