@@ -146,6 +146,7 @@ public void draw() {
  textFont(fonts[2]);
  textSize(50);
  noCursor();
+<<<<<<< Updated upstream
  text("#dada", 660-20,204+10); //660+10,204+60+10
  text("data", 790-10,164); //790+20,164+60+10
  text("Die Wache", 350+20,420+60+10); //538+20,464+60+10
@@ -155,6 +156,15 @@ public void draw() {
  text("www.", 700,600-40); //817+20,740+40
  text("data-data", textWidth("www.")+704,600);
  text(".net", textWidth("www.dada-data")+700,600+30);
+=======
+ /*text("#dada", 660+10,204+60+10);
+ text("data", 790+20,164+60+10);
+ text("Die Wache", 538+20,464+60+10);
+  textSize(55);
+ text("La Garde", 826+45,542+60+25);
+ textSize(40);
+ text("www.data-data.net", 817+20,740+40);*/
+>>>>>>> Stashed changes
   if (bufferTweetPoems.size() < 5) {
     queryTwitter();
   }
