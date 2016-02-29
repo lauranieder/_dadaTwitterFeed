@@ -31,7 +31,7 @@ PFont[] fonts;
 boolean debug = false;
 boolean editable = false;
 boolean retweet = false;
-
+boolean glitchall = false;
 // FloatingText MANAGER ////////////////////////////////////////////////////////
 final String FILE_PLAYER = "zone_setup.txt";// fichier de position des zones
 public ArrayList<FloatingText> zones; //listes des zones
@@ -201,7 +201,15 @@ void keyPressed() {
   else if (key == 's') {
     saveZones(FILE_PLAYER);
     loadZones(FILE_PLAYER);
-  } /*else if (keyCode == UP) {
+  } else if(key == 'g'){
+    glitchall = !glitchall;
+    for (int i = 0; i<displayTweetPoems.size (); i++) {
+    //println("TWEET N°"+i+" draw");
+    displayTweetPoems.get(i).glitch = glitchall;
+    
+  } 
+    
+  }/*else if (keyCode == UP) {
 
     if (activeZone != null && editable) activeZone.drag(mouseX, mouseY);
   } else if (keyCode == DOWN) {

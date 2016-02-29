@@ -7,118 +7,164 @@ class tweetPoem {
   int id;
   boolean fullSeen = false;
   float posYavoid, sizeAvoid;
+  boolean glitch = false;
+  int glitchDuration = 10;
+  int glitchTime = 0;
+
   tweetPoem(String _texte, int _id, float _posYavoid, float _sizeAvoid, float _speedAvoid) {
+    //définition
     id = _id;
     texte = _texte;
     posYavoid = _posYavoid;
     sizeAvoid = _sizeAvoid;
-     speedAvoid = _speedAvoid;
+    speedAvoid = _speedAvoid;
     size = random(40, 70);
-   
-    
-     texte = clean(texte);
- int randomFont = floor(random(0, fonts.length));
+
+    texte = clean(texte);
+    int randomFont = floor(random(0, fonts.length));
     font = fonts[randomFont];
     if (randomFont == 2) {
       uppercase = true;
       size = size*0.8;
-      if(randomFont == 2){
-      texte = texte.toUpperCase();
+      if (randomFont == 2) {
+        texte = texte.toUpperCase();
       }
     }
-     textSize(size);
-       textAscent= textAscent();
-       println("size :"+size+" textAscent: "+textAscent);
-    
+    textSize(size);
+    textAscent= textAscent();
+    println("size :"+size+" textAscent: "+textAscent);
+
     if (frameCount < 5) {
       posX = random(width/2, width);
       //DOING FULLSCREEEEEEN
     } else {
-
       posX = random(width+50, width+200);
     }
-     posY = random(size, lineHeight);
-    
-      speed = random(0.5, 1); //0.5, 1
-      
-      
-     
-   
-      //Si il va plus vite que l'objet d'avant
-    if(speed > speedAvoid && speedAvoid>-1){
-       //Si on connait la position de l'object d'avant
+    posY = random(size, lineHeight);
+    speed = random(0.5, 1); //0.5, 1
+
+    //Si il va plus vite que l'objet d'avant
+    if (speed > speedAvoid && speedAvoid>-1) {
+      //Si on connait la position de l'object d'avant
       if (posYavoid >-1 && sizeAvoid >-1) {
-      float oldposY = posY;
-      
-      //int i = 0;
-      //while (posY >(posXavoid-sizeAvoid) && posY < posXavoid+size && i<10) {
-      //  //println("on the same spot : reprocess...");
-      //  posY = random(size, lineHeight);
-      //  i++;
-      //}
-      
-      if(posY >(posYavoid-sizeAvoid) && posY < posYavoid+size){
-        if(posYavoid+size>lineHeight){
-           println("not enough space after");
-          posY = random(size, posYavoid-sizeAvoid);
-        }else if(posYavoid-sizeAvoid<size){
-          println("not enough space before");
-          posY = random(posYavoid+size, lineHeight);
-        }else{
-          println("enough space both");
-        int test = round(random(0,1));
-          if(test == 0){
+        float oldposY = posY;
+
+        //int i = 0;
+        //while (posY >(posXavoid-sizeAvoid) && posY < posXavoid+size && i<10) {
+        //  //println("on the same spot : reprocess...");
+        //  posY = random(size, lineHeight);
+        //  i++;
+        //}
+
+        if (posY >(posYavoid-sizeAvoid) && posY < posYavoid+size) {
+          if (posYavoid+size>lineHeight) {
+            println("not enough space after");
             posY = random(size, posYavoid-sizeAvoid);
-            
-          }else{
+          } else if (posYavoid-sizeAvoid<size) {
+            println("not enough space before");
             posY = random(posYavoid+size, lineHeight);
+          } else {
+            println("enough space both");
+            int test = round(random(0, 1));
+            if (test == 0) {
+              posY = random(size, posYavoid-sizeAvoid);
+            } else {
+              posY = random(posYavoid+size, lineHeight);
+            }
           }
+          println("on the same spot : reprocess..."+oldposY+",   "+posY);
         }
-        println("on the same spot : reprocess..."+oldposY+",   "+posY);
       }
-      
     }
-    }
-    
-   
-    
+
+
+
     //println("New tweet create : "+posX+","+posY);
   }
 
 
   void display() {
-    //println("TWEET N°"+id+" draw");
-    pushStyle();
-    fill(255);
-    stroke(255);
-    textFont(font);
-    textSize(size);
-    //line(0, offsetT+(lineHeight*i), width, offsetT+(lineHeight*i));
-    
-    text(texte, Math.round(posX), Math.round((id*lineHeight)+posY+offsetT));
-    popStyle();
-    if(debug){
-       pushStyle();
-        fill(255,0,0);
-        stroke(255,0,0);
+    if (glitch) {
+      //pushStyle();
+     
+      //fill(255);
+      //stroke(255);
+      // int randomFontV = floor(random(0, fonts.length));
+      //PFont fontV = fonts[randomFontV];
+      //textFont(fontV);
+      //int sV = int(random(-10,10));
+      ////textSize(size+sV);
+      //textSize(size);
+      ////line(0, offsetT+(lineHeight*i), width, offsetT+(lineHeight*i));
+
+      //text(texte, Math.round(posX), Math.round((id*lineHeight)+posY+offsetT));
+      // popStyle();
+      pushStyle();
+       fill(255);
+     stroke(255);
+       int randomFontV = floor(random(0, fonts.length));
+      PFont fontV = fonts[randomFontV];
+      textFont(fontV);
+      //textFont(font);
+      
+      //textSize(size);
+     float offsetTxt = 0;
+     String texteTemp = texte;
+     
+     for (int i = 0;i<texte.length();i++){
+       int sV = int(random(-20,200));
+      textSize(size+sV);
+       char cTemp = texte.charAt(i);
+       textAlign(LEFT);
+       text(cTemp, Math.round(posX)+offsetTxt, Math.round((id*lineHeight)+posY+offsetT));
+       //println();
+       if(i<texte.length()-1){
+         char cTemp2 = texte.charAt(i+1);
+         String extract = ""+cTemp+cTemp2;
+         float txtw = textWidth(extract) - textWidth(cTemp2);
+         offsetTxt +=txtw;
+       }
+     }
+     
+      float hL = random(0, height);
+      line(0, hL, width, hL);
+
+      //text(texte, Math.round(posX), Math.round((id*lineHeight)+posY+offsetT));
+       popStyle();
+       
+    } else {
+      //println("TWEET N°"+id+" draw");
+      pushStyle();
+      fill(255);
+      stroke(255);
+      textFont(font);
+      textSize(size);
+      //line(0, offsetT+(lineHeight*i), width, offsetT+(lineHeight*i));
+
+      text(texte, Math.round(posX), Math.round((id*lineHeight)+posY+offsetT));
+      popStyle();
+      if (debug) {
+        pushStyle();
+        fill(255, 0, 0);
+        stroke(255, 0, 0);
         strokeWeight(1);
         text(id, Math.round(posX-20), Math.round((id*lineHeight)+posY+offsetT));
         if (posYavoid >-1 && sizeAvoid >-1) {
           float textW = textWidth(texte);
           if ((posX+textW)>width) {
-     
-   
-          line(0,Math.round((id*lineHeight)+(posYavoid-sizeAvoid)+offsetT),width, Math.round((id*lineHeight)+(posYavoid-sizeAvoid)+offsetT));
-          stroke(0,255,0);
-          line(0,Math.round((id*lineHeight)+(posYavoid)+offsetT),width, Math.round((id*lineHeight)+(posYavoid)+offsetT)); 
-           }
+
+
+            line(0, Math.round((id*lineHeight)+(posYavoid-sizeAvoid)+offsetT), width, Math.round((id*lineHeight)+(posYavoid-sizeAvoid)+offsetT));
+            stroke(0, 255, 0);
+            line(0, Math.round((id*lineHeight)+(posYavoid)+offsetT), width, Math.round((id*lineHeight)+(posYavoid)+offsetT));
+          }
         }
         popStyle();
+      }
     }
     //rect(posX, (id*lineHeight)+posY+offsetT, 10,10);
 
     updatePos();
-    
   }
 
   void updatePos() {

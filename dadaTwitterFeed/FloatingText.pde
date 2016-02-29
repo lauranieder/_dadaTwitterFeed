@@ -7,6 +7,7 @@ class FloatingText {
   Boolean active = false;
   Boolean clipTrigger = false;
   Boolean mouseIn = false;
+  
 
   FloatingText(int x, int y, String txt, int s) {
     this.x = x;
@@ -25,9 +26,9 @@ class FloatingText {
 
   void draw() {
     // FILL 
-    noFill();
-    stroke(255,0,0);
-    rect(x, y, w, h);
+    //noFill();
+    //stroke(255,0,0);
+    //rect(x, y, w, h);
     fill(255,0,0);
     textFont(fonts[2]);
     textSize(s);
