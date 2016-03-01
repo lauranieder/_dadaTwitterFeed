@@ -84,6 +84,7 @@ class tweetPoem {
 
 
   void display() {
+    /////////////////////GLITCH////////////////////
     if (glitch) {
       //pushStyle();
      
