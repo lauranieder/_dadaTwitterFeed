@@ -126,6 +126,7 @@ void queryTwitter() {
 // }
 //}
 void draw() {
+
   background(0);
   fill(198, 87, 79);
   textFont(fonts[2]);
@@ -160,6 +161,27 @@ void draw() {
    text("La Garde", 826+45,542+60+25);
    textSize(40);
    text("www.data-data.net", 817+20,740+40);*/
+
+ //background(0);
+ //fill(198,87,79);
+ //textFont(fonts[2]);
+ //textSize(50);
+ //noCursor();
+ //text("#dada", 660-20,204+10); //660+10,204+60+10
+ //text("data", 790-10,164); //790+20,164+60+10
+ //text("Die Wache", 350+20,420+60+10-30); //538+20,464+60+10
+  
+ 
+ // textSize(55);
+ //text("La Garde", 126+45,500+60+25); //826+45,542+60+25
+ //textSize(39);
+ //text("www.", 700,600-40); //817+20,740+40
+ //text("data-data", textWidth("www.")+704,600);
+ //text(".net", textWidth("www.dada-data")+700,600+30);
+ ////
+ // textSize(30);
+ //text("Prenez une boîte !", 126+45,500+60+25+30); 
+ // text("Nehmen Sie eine Schachtel!", 350+20,420+60+10+0);
 
   if (bufferTweetPoems.size() < 5) {
     queryTwitter();
