@@ -8,8 +8,7 @@ class tweetPoem {
   boolean fullSeen = false;
   float posYavoid, sizeAvoid;
   boolean glitch = false;
-  int glitchDuration = 10;
-  int glitchTime = 0;
+ 
 
   tweetPoem(String _texte, int _id, float _posYavoid, float _sizeAvoid, float _speedAvoid) {
     //définition

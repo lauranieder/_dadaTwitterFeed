@@ -32,6 +32,12 @@ boolean debug = false;
 boolean editable = false;
 boolean retweet = false;
 boolean glitchall = false;
+int glitchNB = 1;
+ int glitchDuration = 15;
+ int glitchDelay = 450;
+  int glitchTime = 0;
+  int glitchTimeDelay = 0;
+  
 // FloatingText MANAGER ////////////////////////////////////////////////////////
 final String FILE_PLAYER = "zone_setup.txt";// fichier de position des zones
 public ArrayList<FloatingText> zones; //listes des zones
@@ -131,6 +137,7 @@ void draw() {
   fill(198, 87, 79);
   textFont(fonts[2]);
   textSize(50);
+  manageGlitch();
   if (!editable) {
     noCursor();
   } else {
@@ -144,6 +151,8 @@ void draw() {
 
     a.draw();
   }
+  text("Next glitch in :  "+glitchTimeDelay+" / "+glitchDelay,200,50);
+  text("Glitch :  "+glitchall, 200,100);
   //text("#dada", 660-20,204+10); //660+10,204+60+10
   //text("data", 790-10,164); //790+20,164+60+10
   //text("Die Wache", 350+20,420+60+10); //538+20,464+60+10
@@ -196,6 +205,7 @@ void draw() {
       strokeWeight(4);
       line(0, offsetT+(lineHeight*i), width, offsetT+(lineHeight*i));
     }
+    
   }
   popStyle();
 
@@ -225,11 +235,13 @@ void keyPressed() {
     loadZones(FILE_PLAYER);
   } else if(key == 'g'){
     glitchall = !glitchall;
+    glitchTimeDelay = 0;
+    glitchTime = 0;
     for (int i = 0; i<displayTweetPoems.size (); i++) {
     //println("TWEET N°"+i+" draw");
     displayTweetPoems.get(i).glitch = glitchall;
     
-  } 
+    } 
     
   }/*else if (keyCode == UP) {
 
@@ -239,6 +251,41 @@ void keyPressed() {
   } else if (keyCode == RIGHT) {
   }*/
 }
+void manageGlitch(){
+  if(glitchall){
+    if (glitchTime < glitchDuration){
+    glitchTime++;
+    
+    
+    }else{
+      //glitch false
+      glitchTime = 0;
+      glitchall = false;
+      glitchDelay = int(random(400,800));
+    }
+    
+  }else{
+    if (glitchTimeDelay < glitchDelay){
+    glitchTimeDelay++;
+    
+    
+    }else{
+      //glitch false
+      glitchTimeDelay = 0;
+      glitchall = true;
+    }
+    
+  }
+  for (int i = 0; i<displayTweetPoems.size (); i++) {
+    //println("TWEET N°"+i+" draw");
+    displayTweetPoems.get(i).glitch = glitchall;
+    
+    } 
+  
+  
+}
+
+
 //SAUVEGARDER LES ZONES
 void addFloatingText() {
   int w = 200;

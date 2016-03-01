@@ -1,8 +1,6 @@
-187_33_116_50_#dada_50
-302_35_83_50_data_50
-532_497_218_50_Die Wache_50
-108_440_195_55_La Garde_55
-660_75_291_39_www.dada-data.net_39
-109_490_214_30_Prenez une boîte !_30
-533_545_334_30_Nehmen Sie eine Schachtel!_30
-884_686_137_30_fragment.in_30
+481_221_116_50_#dada_50
+608_255_83_50_data_50
+628_512_218_50_Die Wache_50
+116_267_195_55_La Garde_55
+105_389_209_39_dada-data.net_39
+907_231_114_25_fragment.in_25
