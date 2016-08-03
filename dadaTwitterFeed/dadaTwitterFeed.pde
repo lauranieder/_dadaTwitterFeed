@@ -99,9 +99,9 @@ void queryTwitter() {
     int j = 0;
     for (Status tw : tweets) {
       String msg = tw.getText();
-      if (!retweet && checkRetweet(msg)) {
-        println("TWEET N° "+i+" removed because retweet");
-      } else {
+      /*if (!retweet && checkRetweet(msg)) {
+       println("TWEET N° "+i+" removed because retweet");
+      } else {*/
 
         if (displayTweetPoems.size()>displayNb-1) {
           bufferTweetPoems.add(msg);
@@ -111,7 +111,7 @@ void queryTwitter() {
           println("TWEET N° "+i+" added to display");
           j++;
         }
-      }
+      /*}*/
       i++;
     }
     println("display/ "+displayTweetPoems.size()+"     buffer/"+bufferTweetPoems.size());
@@ -151,8 +151,8 @@ void draw() {
 
     a.draw();
   }
-  text("Next glitch in :  "+glitchTimeDelay+" / "+glitchDelay,200,50);
-  text("Glitch :  "+glitchall, 200,100);
+  //text("Next glitch in :  "+glitchTimeDelay+" / "+glitchDelay,200,50);
+  //text("Glitch :  "+glitchall, 200,100);
   //text("#dada", 660-20,204+10); //660+10,204+60+10
   //text("data", 790-10,164); //790+20,164+60+10
   //text("Die Wache", 350+20,420+60+10); //538+20,464+60+10

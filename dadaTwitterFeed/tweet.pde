@@ -44,6 +44,7 @@ class tweetPoem {
 
     //Si il va plus vite que l'objet d'avant
     if (speed > speedAvoid && speedAvoid>-1) {
+       println("speed avoid");
       //Si on connait la position de l'object d'avant
       if (posYavoid >-1 && sizeAvoid >-1) {
         float oldposY = posY;
@@ -72,6 +73,8 @@ class tweetPoem {
             }
           }
           println("on the same spot : reprocess..."+oldposY+",   "+posY);
+        }else{
+          println("NOT on the same spot : reprocess..."+oldposY+",   "+posY);
         }
       }
     }
